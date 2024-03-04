@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS Users (
     Surname VARCHAR(50),
     Telephone VARCHAR(20),
     Birthday DATE NOT NULL,
-    CategoryID INTEGER REFERENCES Categories (ID) NOT NULL
+    CategoryID INTEGER REFERENCES Categories (ID)
 );
