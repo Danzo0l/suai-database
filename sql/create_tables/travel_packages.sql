@@ -1,7 +1,24 @@
-CREATE TABLE IF NOT EXISTS TravelPackages (
-    ID INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    OrderID INTEGER NOT NULL REFERENCES Orders (ID),
-    RegistrationDate DATE,
-    RegistrationTime TIME,
-    Price INTEGER
-);
+UPDATE Users
+-- Устанавливаем новое значение для поля CategoryID с помощью CASE-выражения
+SET CategoryID =
+    CASE
+        -- Если сумма цен путевок пользователя >= 150000, присваиваем ему категорию 4
+        WHEN TotalPrice >= 150000 THEN 4
+        -- Если сумма цен путевок пользователя >= 100000, присваиваем ему категорию 3
+        WHEN TotalPrice >= 100000 THEN 3
+        -- Если сумма цен путевок пользователя >= 50000, присваиваем ему категорию 2
+        WHEN TotalPrice >= 50000 THEN 2
+        -- Если сумма цен путевок пользователя меньше 50000, оставляем категорию пользователя без изменений
+        ELSE CategoryID
+    END
+-- Выполняем обновление только для записей, у которых UserID соответствует UserID из подзапроса
+FROM (
+    -- Подзапрос для вычисления суммы цен путевок для каждого пользователя
+    SELECT UserID, SUM(Price) AS TotalPrice
+    FROM TravelPackages
+    -- Группируем по UserID для вычисления суммы цен для каждого пользователя
+    GROUP BY UserID
+) AS UserTotalPrice
+-- Связываем записи из таблиц Users и подзапроса по UserID для выполнения обновления
+WHERE Users.ID = UserTotalPrice.UserID;
+

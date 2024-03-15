@@ -1,2 +1,5 @@
 INSERT INTO Visas (VisaType, Number, UserID, DateOfIssue)
-VALUES (:VisaType, :Number, :UserID, :DateOfIssue);
+VALUES (1, '12345231465436453', 9, '2020-12-12'),
+       (1, '1234523146543643784', 10, '2021-10-10'),
+       (1, '12345231465436453', 11, '2008-12-01'),
+       (2, '12345231465436453', 9, '2016-01-12')

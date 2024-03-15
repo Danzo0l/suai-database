@@ -1,2 +1,5 @@
 INSERT INTO Passports (Number, DateOfIssue, UserID)
-VALUES (:number, :dateofissue, :userid);
+VALUES ('2132145325', '2021-12-12', 9),
+       ('2346346577', '2022-10-22', 10),
+       ('2135423463', '2006-07-30', 11),
+       ('4564785684', '2000-10-01', 12)
